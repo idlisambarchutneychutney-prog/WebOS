@@ -1,37 +1,33 @@
-/* --- System Design Color Variables --- */
 :root {
-    --glass-bg: rgba(25, 25, 25, 0.6);        /* Main translucent backing color */
-    --glass-border: rgba(255, 255, 255, 0.1);  /* Thin subtle light stroke line borders */
-    --text-main: #f5f5f7;                      /* Main dominant text white brightness */
-    --text-sub: #a1a1a6;                       /* Secondary description text gray tone */
-    --accent-color: #0071e3;                   /* Apple style primary highlight action blue color */
-    --window-bg: #1c1c1e;                      /* Fallback solid opaque app background color */
-    --sidebar-bg: #141416;                     /* Dark background for the notes app sidebar navigation */
-    --card-bg: #2c2c2e;                        /* Background highlight card box grids */
+    --glass-bg: rgba(25, 25, 25, 0.6);        
+    --glass-border: rgba(255, 255, 255, 0.1);  
+    --text-main: #f5f5f7;                      
+    --text-sub: #a1a1a6;                       
+    --accent-color: #0071e3;                   
+    --window-bg: #1c1c1e;                      
+    --sidebar-bg: #141416;                     
+    --card-bg: #2c2c2e;                        
 }
 
-/* --- Base Body Window Canvas Configuration --- */
 body {
     margin: 0;
     padding: 0;
-    /* Sets the default high-res desktop blur wallpaper artwork structure */
     background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop'); 
     background-size: cover;
     background-position: center;
     height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, "WebOS", Roboto, sans-serif;
-    overflow: hidden; /* Prevents user scrolling outside the screen resolution space */
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: hidden; 
     color: var(--text-main);
 }
 
-/* --- Top Header Navigation Styling Bar --- */
 .top-bar {
     position: absolute; 
     top: 0;
     left: 0;
     width: 100%; 
     display: flex; 
-    backdrop-filter: blur(20px); /* Blurs out whatever wallpaper canvas slides underneath */
+    backdrop-filter: blur(20px); 
     -webkit-backdrop-filter: blur(20px);
     background-color: rgba(10, 10, 10, 0.3); 
     border-bottom: 1px solid var(--glass-border);
@@ -40,8 +36,8 @@ body {
     box-sizing: border-box;
     padding: 0 20px;
     height: 44px;
-    user-select: none; /* Prevents text highlights during app switching clicks */
-    z-index: 99999; /* Forces status indicator layer to sit over floating elements */
+    user-select: none; 
+    z-index: 99999; 
 }
 
 .top-bar-btn {
@@ -64,13 +60,12 @@ body {
     font-weight: 500;
 }
 
-/* --- Desktop Application Cluster Area Layout Grid --- */
 #desktopApps {
     position: absolute;
     top: 64px;
     left: 20px;
     display: flex;
-    flex-direction: column; /* Stacks app launcher shortcuts vertically */
+    flex-direction: column; 
     gap: 16px;
     width: max-content;
     z-index: 5;
@@ -94,7 +89,6 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Square colored shape housings behind graphic app emojis */
 .app-icon .icon-placeholder {
     width: 50px; 
     height: 50px; 
@@ -106,7 +100,6 @@ body {
     font-size: 24px;
 }
 
-/* Gradient backdrops for different application icons */
 .icon-notes { background: linear-gradient(135deg, #ff9500, #ff5e3a); }
 .icon-photo { background: linear-gradient(135deg, #52c2ff, #0a84ff); }
 .icon-settings { background: linear-gradient(135deg, #8e8e93, #3a3a3c); }
@@ -119,15 +112,14 @@ body {
     color: var(--text-main); 
     font-size: 12px;
     font-weight: 500;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.7); /* Adds black drop shadows behind fonts for visibility */
+    text-shadow: 0 1px 3px rgba(0,0,0,0.7); 
 }
 
-/* --- System Dock (Bottom Launch Area) --- */
 .system-dock {
     position: absolute;
     bottom: 20px;
     left: 50%;
-    transform: translateX(-50%); /* Centers dock component exactly in screen middle */
+    transform: translateX(-50%); 
     background: rgba(30, 30, 30, 0.35);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
@@ -153,12 +145,10 @@ body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* Pops the icon slightly upwards when mouse glides over */
 .dock-item:hover {
     transform: scale(1.18) translateY(-6px);
 }
 
-/* --- Global OS Window Frame Architecture --- */
 .window {
     position: absolute; 
     border: 1px solid var(--glass-border); 
@@ -173,7 +163,6 @@ body {
     overflow: hidden;
 }
 
-/* Window title header region that can be grabbed for dragging functionality */
 .windowheader {
     display: flex;
     align-items: center;
@@ -192,7 +181,6 @@ body {
     width: 50px;
 }
 
-/* Red Apple design close window button design structure circle link style */
 .closebutton {
     width: 12px;
     height: 12px;
@@ -209,7 +197,7 @@ body {
     font-size: 13px;
     font-weight: 600;
     color: var(--text-main);
-    margin-right: 50px; /* Counter-balances the width of left window controls to keep title dead center */
+    margin-right: 50px; 
 }
 
 .app-body {
@@ -222,17 +210,15 @@ body {
 
 .padded-content { padding: 20px; width: 100%; overflow-y: auto; }
 
-/* --- Profile Badges (About Me Window) --- */
 .profile-container { display: flex; flex-direction: column; gap: 12px; }
 .profile-badge {
     background: var(--card-bg);
     padding: 8px 12px;
     border-radius: 8px;
     font-size: 13px;
-    border-left: 3px solid var(--accent-color); /* Colorful neon stripe boundary marker */
+    border-left: 3px solid var(--accent-color); 
 }
 
-/* --- Calculator Application Layout Elements --- */
 .calc-wrap { display: flex; flex-direction: column; width: 100%; padding: 12px; gap: 10px; }
 .calc-screen {
     background-color: #0b0b0c;
@@ -257,20 +243,16 @@ body {
     transition: background 0.1s;
 }
 .calc-btn:hover { background-color: rgba(255,255,255,0.15); }
-/* Styling specifically targeted at functional operator math math buttons like +, -, = */
 .calc-btn.op { background-color: #ff9500; color: #fff; }
 .calc-btn.op:hover { background-color: #e08400; }
 
-/* --- Calendar Framework Grid Structuring --- */
 .cal-container { display: flex; flex-direction: column; width: 100%; padding: 12px; }
 .cal-header { text-align: center; font-weight: 600; margin-bottom: 14px; font-size: 16px; color: var(--text-main); }
 .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; font-size: 13px; }
 .cal-day-label { font-weight: bold; color: var(--text-sub); padding-bottom: 6px; }
 .cal-day { padding: 8px 0; border-radius: 50%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; }
-/* Current active numerical day indicator badge class marker */
 .cal-day.today { background-color: var(--accent-color); font-weight: bold; color: #fff; }
 
-/* --- Notepad Application Content Elements --- */
 .sidebar { background-color: var(--sidebar-bg); width: 150px; padding: 10px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid rgba(255,255,255,0.05); }
 .sidebar-item { padding: 8px 10px; border-radius: 6px; cursor: pointer; font-size: 12px; color: var(--text-sub); }
 .sidebar-item.active { background-color: var(--accent-color); color: #fff; }
@@ -287,10 +269,8 @@ body {
     width: 100%; padding: 10px; background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; box-sizing: border-box; margin-bottom: 12px;
 }
 
-/* --- Gallery Architecture Grid Layout (Wildlife Pictures) --- */
 .gallery-grid {
     display: grid;
-    /* Auto-fills space fitting images smoothly depending on window expansion width boundaries */
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 12px;
     padding-bottom: 20px;
@@ -299,9 +279,9 @@ body {
 .gallery-item {
     background-color: var(--card-bg);
     border-radius: 10px;
-    overflow: hidden; /* Keeps image corners clipped clean inside round radius border wrappers */
+    overflow: hidden; 
     box-sizing: border-box;
-    aspect-ratio: 1;   /* Keeps all card frames perfectly square */
+    aspect-ratio: 1;   
     border: 1px solid var(--glass-border);
     transition: transform 0.2s, box-shadow 0.2s;
     display: flex;
@@ -314,11 +294,9 @@ body {
     box-shadow: 0 8px 16px rgba(0,0,0,0.4);
 }
 
-
-
 .gallery-item img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Crops image contents directly inside the layout bounding shapes without stretching distortions */
-    pointer-events: none; /* Crucial fix! Keeps mouse clicks cleanly pointing directly back to header layers during frame drag moves */
+    object-fit: cover; 
+    pointer-events: none; 
 }
