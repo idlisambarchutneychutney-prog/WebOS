@@ -1,1 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebOS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+ 
+    <div class="top-bar" id="top">
+        <p id="welcomeopen" class="top-bar-btn"> WebOS</p>
+        <p style="margin: 0; font-size: 13px; font-weight: 500; color: var(--text-sub);">Workspace Node</p>
+        <p id="timeElement" class="top-bar-status">00:00:00 AM</p>
+    </div>
 
+    <div id="desktopApps">
+        <div class="app-icon" id="notesIcon">
+            <div class="icon-placeholder icon-notes">📝</div>
+            <p>Notes</p>
+        </div>
+        <div class="app-icon" id="photoIcon">
+            <div class="icon-placeholder icon-photo">🖼️</div>
+            <p>Images</p>
+        </div>
+    </div>
+ 
+    <div class="system-dock">
+        <div class="dock-item icon-settings" id="dockSettings" title="Settings">⚙️</div>
+        <div class="dock-item icon-calendar" id="dockCalendar" title="Calendar">📅</div>
+        <div class="dock-item icon-calc" id="dockCalc" title="Calculator">🔢</div>
+        <div class="dock-item icon-about" id="dockAbout" title="About Me">👤</div>
+    </div>
+
+    <div class="window" id="welcome" style="top: 15%; left: 20%; width: 340px; height: 200px;">
+        <div class="windowheader" id="welcomeheader">
+            <div class="window-controls"><div class="closebutton" id="welcomeclose"></div></div>
+            <span class="headertext">System Kernel</span>
+        </div>
+        <div class="app-body">
+            <div class="padded-content" style="text-align: center;">
+                <h3 style="margin: 0 0 8px 0;">Welcome to personalOS</h3>
+                <p style="font-size: 13px; color: var(--text-sub); margin: 0;">Clicking any icon on the desktop layout grid or dock launches its runtime environment instantly.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="window" id="notes" style="top: 22%; left: 26%; width: 580px; height: 380px; display: none;">
+        <div class="windowheader" id="notesheader">
+            <div class="window-controls"><div class="closebutton" id="notesclose"></div></div>
+            <span class="headertext">Hacker Notes</span>
+        </div>
+        <div class="app-body">
+            <div class="sidebar" id="sidebar"></div>
+            <div class="content-area" id="noteContentTarget">
+                <textarea class="notes-textarea" id="notesEditor" placeholder="Start typing..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="window" id="photo" style="top: 20%; left: 35%; width: 500px; height: 450px; display: none;">
+        <div class="windowheader" id="photoheader">
+            <div class="window-controls"><div class="closebutton" id="photoclose"></div></div>
+            <span class="headertext">Image Explorer</span>
+        </div>
+        <div class="app-body">
+            <div class="padded-content">
+                <h3 style="margin-top:0; margin-bottom: 4px;">Wildlife Gallery Workspace</h3>
+                <p style="color: var(--text-sub); font-size: 13px; margin-bottom: 16px;">Curated visual asset collection templates.</p>
+                
+                <div class="gallery-grid">
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?auto=format&fit=crop&w=300&q=80" alt="Monkey"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1579380651747-e1899fa7bfd7?auto=format&fit=crop&w=300&q=80" alt="Frog"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1589656966895-2f33e7653819?auto=format&fit=crop&w=300&q=80" alt="Bear"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1534567153574-2b12153a87f0?auto=format&fit=crop&w=300&q=80" alt="Monkey"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1551846416-24e030a09594?auto=format&fit=crop&w=300&q=80" alt="Frog"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?auto=format&fit=crop&w=300&q=80" alt="Bear"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1603123853880-a92fafb7809f?auto=format&fit=crop&w=300&q=80" alt="Monkey"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590005354167-6da97870c913?auto=format&fit=crop&w=300&q=80" alt="Bear"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1501443712740-a5dbcd16ae78?auto=format&fit=crop&w=300&q=80" alt="Frog"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="window" id="settings" style="top: 20%; left: 55%; width: 350px; height: 240px; display: none;">
+        <div class="windowheader" id="settingsheader">
+            <div class="window-controls"><div class="closebutton" id="settingsclose"></div></div>
+            <span class="headertext">Settings</span>
+        </div>
+        <div class="app-body">
+            <div class="padded-content">
+                <h4 style="margin: 0 0 6px 0;">Desktop Customization</h4>
+                <p style="font-size: 12px; color: var(--text-sub); margin-bottom: 12px;">Paste an image address link to replace the global background wallpaper.</p>
+                <input type="text" class="input-field" id="wallpaperUrl" placeholder="https://images.unsplash.com/...">
+                <button class="top-bar-btn" id="applyWallpaperBtn" style="width:100%; border:none; color:#fff; padding:8px 0;">Apply Background</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="window" id="about" style="top: 40%; left: 22%; width: 380px; height: 360px; display: none;">
+        <div class="windowheader" id="aboutheader">
+            <div class="window-controls"><div class="closebutton" id="aboutclose"></div></div>
+            <span class="headertext">About Me</span>
+        </div>
+        <div class="app-body">
+            <div class="padded-content">
+                <h3 style="margin-top: 0; margin-bottom: 4px;">Hey, I'm Sid 👋,</h3>
+                <p style="font-size: 13px; color: white; margin-bottom: 16px;">I'm a high school student from Victoria, BC who enjoys coding, robotics, and building cool projects. I like turning ideas into real things.</p>
+                <h3>Current Interests</h3>
+                <div class="profile-container">
+                    <div class="profile-badge"><strong>Web Development</strong></div>
+                    <div class="profile-badge"><strong>Robotics (FIRST)</strong></div>
+                    <div class="profile-badge"><strong>AI & Machine Learning</strong></div>
+                    <div class="profile-badge"><strong>Programming</strong></div>
+                    <div class="profile-badge"><strong>UI/UX Design</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="window" id="calendar" style="top: 25%; left: 35%; width: 340px; height: 350px; display: none;">
+        <div class="windowheader" id="calendarheader">
+            <div class="window-controls"><div class="closebutton" id="calendarclose"></div></div>
+            <span class="headertext">Calendar</span>
+        </div>
+        <div class="app-body">
+            <div class="cal-container">
+                <div class="cal-header" id="calMonthYear"></div>
+                <div class="cal-grid" id="calGridDays"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="window" id="calc" style="top: 15%; left: 40%; width: 300px; height: 420px; display: none;">
+        <div class="windowheader" id="calcheader">
+            <div class="window-controls"><div class="closebutton" id="calcclose"></div></div>
+            <span class="headertext">Calculator</span>
+        </div>
+        <div class="app-body">
+            <div class="calc-wrap">
+                <div class="calc-screen" id="calcDisplay">0</div>
+                <div class="calc-grid" id="calcGridButtons"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
