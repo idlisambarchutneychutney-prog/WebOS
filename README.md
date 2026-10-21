@@ -21,12 +21,12 @@ Desktop Customization: A live settings application that updates the global canva
 
 Aesthetics: Apple-inspired frosted glass styling using modern backdrop-filter blur effects.
 
-🛠️ File Structure
+File Structure
 Plaintext
 ├── index.html       # Application markup & DOM skeleton
 ├── style.css        # System colors, layout grids, and glassmorphism styling
 └── script.js        # Core OS engine, draggable window logic, & utility applications
-💻 How to Test & Use
+ How to Test & Use
 Launch Applications: Click on any desktop icon or item in the bottom system dock to open its respective window container.
 
 Interact & Stack: Click inside any open application window to bring it to the foreground. Drag windows around the workspace using their top header bars.
@@ -35,5 +35,5 @@ Change Wallpaper: Open the Settings app (gear icon), paste any direct image addr
 
 Run Math & Notes: Open the Calculator to chain expressions or write lists in Hacker Notes and switch between active documents on the fly.
 
-📝 License
+ License
 This project is open source and available under the MIT License.
