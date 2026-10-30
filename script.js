@@ -10,7 +10,6 @@ const focusWindow = (targetWindow) => {
 };
 
 let trackDay = null, trackMonth = null, trackYear = null;
-
 const runSystemClock = () => {
     const clockDisplay = document.getElementById('timeElement');
     const now = new Date();
@@ -215,6 +214,4 @@ function makeDraggable(windowElement) {
 
             windowElement.style.top = `${windowElement.offsetTop - deltaY}px`;
             windowElement.style.left = `${windowElement.offsetLeft - deltaX}px`;
-        };
-    };
-}
+        };};}
