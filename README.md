@@ -1,5 +1,5 @@
 WebOS
-A sleek, lightweight, and responsive browser-based desktop environment built entirely with  HTML5, CSS, and JavaScript. It simulates a native desktop operating system interface with draggable windows, state management, and real-time utilities.
+A sleek and responsive browser-based desktop environment built entirely with  HTML5, CSS, and JavaScript. It simulates a native desktop operating system interface with draggable windows, state management, and real-time utilities.
 
 Live Demo
 https://webos-two.vercel.app/
