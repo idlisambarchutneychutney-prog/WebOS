@@ -1,39 +1,27 @@
-WebOS
-A sleek and responsive browser-based desktop environment built entirely with  HTML5, CSS, and JavaScript. It simulates a native desktop operating system interface with draggable windows, state management, and real-time utilities.
+# WebOS
+WebOS is a browser-based desktop environment built using HTML, CSS, and JavaScript. The idea behind this project was to recreate the feel of a real desktop operating system, but make it run entirely inside a web browser.
 
-Live Demo
+It comes with a clean interface, draggable windows, working applications, and a few useful features that make the experience feel more like using an actual computer.
+
+## Live Demo
 https://webos-two.vercel.app/
 
-Features
-Window Management Engine: Native window focus layering.
+## Features
 
-Vector Dragging System: Fluid mouse-tracking mechanics to drag windows smoothly via their header bars.
+- **Window Management:** Open multiple applications at once, move them around, and switch between them.
 
-Live System Utilities: * Hacker Notes: A custom text editor with dynamic sidebar tab switching and persistent in-memory document state.
+- **Draggable Windows:** Every app window can be dragged around the desktop using its top bar, making it easy to organize your workspace.
 
-Image Explorer: A clean, responsive grid layout showcasing curated wildlife media assets.
+- **Notes:** A simple built-in text editor where you can create and switch between different notes. Your documents stay saved in memory while using the app.
 
-High-Fidelity Calendar: A live monthly calendar that calculates month lengths and day offsets, automatically repainting the grid right at midnight.
+- **Image Explorer:** Browse a collection of wildlife images displayed in a clean and responsive grid layout.
 
-Calculator: A fully functioning math layout interpreter running complex arithmetic expressions via safe runtime evaluations.
+- **Calculator:** A functional calculator that handles basic mathematical stuff.
 
-Desktop Customization: A live settings application that updates the global canvas wallpaper dynamically via any web URL link.
+## How to Use
 
-Aesthetics: Apple-inspired frosted glass styling using modern backdrop-filter blur effects.
-
-File Structure
-Plaintext
-├── index.html       # Application markup & DOM skeleton
-├── style.css        # System colors, layout grids, and glassmorphism styling
-└── script.js        # Core OS engine, draggable window logic, & utility applications
- How to Test & Use
-Launch Applications: Click on any desktop icon or item in the bottom system dock to open its respective window container.
-
-Interact & Stack: Click inside any open application window to bring it to the foreground. Drag windows around the workspace using their top header bars.
-
-Change Wallpaper: Open the Settings app (gear icon), paste any direct image address link (e.g., from Unsplash) into the input field, and hit Apply Background to change the workspace artwork instantly.
-
-Run Math & Notes: Open the Calculator to chain expressions or write lists in Hacker Notes and switch between active documents on the fly.
-
- License
-This project is open source and available under the MIT License.
+1. **Open Apps:** Click any application icon on the desktop or in the bottom dock.
+2. **Move Windows:** Drag an application's top bar to move its window around.
+3. **Switch Between Apps:** Click any open window to bring it to the front.
+5. **Use the Calculator:** Open Calculator and enter mathematical expressions.
+6. **Manage Notes:** Open Notes to write documents and switch between different tabs.
