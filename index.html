@@ -1,149 +1,470 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebOS</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebOS</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Tahoma, sans-serif;
+    user-select: none;
+}
+
+body {
+    /* blue to red gradient background */
+    background: linear-gradient(135deg, #102a56, #2e518b, #cc2b2b, #8b0000);
+    height: 100vh;
+    overflow: hidden;
+    color: #111;
+}
+
+#topPanel {
+    height: 28px;
+    background: #181818;
+    color: #dedede;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 12px;
+    border-bottom: 2px solid #000;
+}
+
+#sysClock {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #00ffaa;
+}
+
+#desktopArea {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: fit-content;
+}
+
+.desk-icon {
+    width: 68px;
+    text-align: center;
+    cursor: pointer;
+    color: #ffffff;
+    text-shadow: 1px 1px 3px #000;
+}
+
+.icon-box {
+    width: 46px;
+    height: 46px;
+    background: #e1e1e1;
+    border: 2px solid #ffffff;
+    border-radius: 4px;
+    margin: 0 auto 4px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.desk-icon:hover .icon-box {
+    background: #cfcfcf;
+}
+
+.desk-icon span {
+    font-size: 11px;
+    font-weight: bold;
+    display: block;
+}
+
+.window {
+    position: absolute;
+    background: #e2e2e2;
+    border: 2px solid #111111;
+    box-shadow: 4px 4px 0px #111;
+    display: none;
+    flex-direction: column;
+    min-width: 200px;
+}
+
+.win-titlebar {
+    background: #1a4270;
+    color: #ffffff;
+    padding: 4px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.close-x {
+    background: #cc2222;
+    color: white;
+    border: 1px solid #770000;
+    width: 17px;
+    height: 17px;
+    line-height: 14px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.close-x:hover {
+    background: #ff0000;
+}
+
+.win-body {
+    padding: 10px;
+    background: #ffffff;
+    flex: 1;
+    overflow: auto;
+    user-select: text;
+}
+
+/* notes */
+#txtNote {
+    width: 100%;
+    height: 170px;
+    border: 1px solid #777;
+    padding: 6px;
+    font-family: monospace;
+    font-size: 12px;
+    resize: none;
+    outline: none;
+}
+
+/* calculator */
+.calc-screen {
+    width: 100%;
+    height: 36px;
+    background: #222;
+    color: #00ff66;
+    border: 1px solid #000;
+    margin-bottom: 8px;
+    text-align: right;
+    padding: 6px 8px;
+    font-size: 18px;
+    font-family: monospace;
+    box-sizing: border-box;
+}
+
+.calc-btns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+}
+
+.btn-c {
+    padding: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    background: #eaeaea;
+    border: 1px solid #666;
+    cursor: pointer;
+}
+
+.btn-c:active {
+    background: #bbb;
+}
+
+.gal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.gal-grid img {
+    width: 100%;
+    height: 95px;
+    object-fit: cover;
+    border: 1px solid #444;
+}
+
+/* taskbar */
+#tbContainer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 34px;
+    background: #1b1b1b;
+    border-top: 2px solid #444;
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    gap: 6px;
+    z-index: 9999;
+}
+
+.tb-item {
+    background: #333333;
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 11px;
+    border: 1px solid #666;
+    cursor: pointer;
+}
+
+.tb-item.active {
+    background: #1a4270;
+    border-color: #5588cc;
+}
+</style>
 </head>
 <body>
 
-    <div class="top-bar" id="top">
-        <p id="welcomeopen" class="top-bar-btn"> WebOS</p>
-        <p style="margin: 0; font-size: 13px; font-weight: 500; color: var(--text-sub);">Workspace Node</p>
-        <p id="timeElement" class="top-bar-status">00:00:00 AM</p>
+    <!-- top panel -->
+    <div id="topPanel">
+    <b>WebOS</b>
+        <span id="sysClock">00:00:00</span>
     </div>
 
-    <div id="desktopApps">
-        <div class="app-icon" id="notesIcon">
-            <div class="icon-placeholder icon-notes">📝</div>
-            <p>Notes</p>
+    <!-- icons -->
+    <div id="desktopArea">
+        <div class="desk-icon" onclick="openMe('wNotes')">
+            <div class="icon-box">📝</div>
+            <span>Notes</span>
         </div>
-        <div class="app-icon" id="photoIcon">
-            <div class="icon-placeholder icon-photo">🖼️</div>
-            <p>Images</p>
+        <div class="desk-icon" onclick="openMe('wCalc')">
+            <div class="icon-box">🔢</div>
+            <span>Calc</span>
         </div>
-    </div>
- 
-    <div class="system-dock">
-        <div class="dock-item icon-settings" id="dockSettings" title="Settings">⚙️</div>
-        <div class="dock-item icon-calendar" id="dockCalendar" title="Calendar">📅</div>
-        <div class="dock-item icon-calc" id="dockCalc" title="Calculator">🔢</div>
-        <div class="dock-item icon-about" id="dockAbout" title="About Me">👤</div>
+        <div class="desk-icon" onclick="openMe('wGallery')">
+            <div class="icon-box">🖼️</div>
+            <span>Images</span>
+        </div>
+        <div class="desk-icon" onclick="openMe('wAbout')">
+            <div class="icon-box">👤</div>
+            <span>About</span>
+        </div>
     </div>
 
-    <div class="window" id="welcome" style="top: 15%; left: 20%; width: 340px; height: 200px;">
-        <div class="windowheader" id="welcomeheader">
-            <div class="window-controls"><div class="closebutton" id="welcomeclose"></div></div>
-            <span class="headertext">System Kernel</span>
+    <div id="wNotes" class="window" style="top: 55px; left: 90px; width: 340px;">
+        <div class="win-titlebar" onmousedown="dragInit(event, 'wNotes')">
+            <span>Notes.txt</span>
+            <div class="close-x" onclick="closeMe('wNotes')">X</div>
         </div>
-        <div class="app-body">
-            <div class="padded-content" style="text-align: center;">
-                <h3 style="margin: 0 0 8px 0;">Welcome to personalOS</h3>
-                <p style="font-size: 13px; color: var(--text-sub); margin: 0;">Clicking any icon on the desktop layout grid or dock launches its runtime environment instantly.</p>
+        <div class="win-body">
+            <textarea id="txtNote" placeholder="Write stuff down..."></textarea>
+            <div style="margin-top: 6px; display: flex; justify-content: space-between; align-items: center;">
+                <span id="noteSavedStatus" style="font-size: 10px; color: #666;">Auto-saves to browser</span>
+                <button onclick="wipeNotes()" style="padding: 3px 8px; font-size: 11px; cursor: pointer;">Clear text</button>
             </div>
         </div>
     </div>
 
-    <div class="window" id="notes" style="top: 22%; left: 26%; width: 580px; height: 380px; display: none;">
-        <div class="windowheader" id="notesheader">
-            <div class="window-controls"><div class="closebutton" id="notesclose"></div></div>
-            <span class="headertext">Hacker Notes</span>
+    <div id="wCalc" class="window" style="top: 80px; left: 160px; width: 230px;">
+        <div class="win-titlebar" onmousedown="dragInit(event, 'wCalc')">
+            <span>Calculator</span>
+            <div class="close-x" onclick="closeMe('wCalc')">X</div>
         </div>
-        <div class="app-body">
-            <div class="sidebar" id="sidebar"></div>
-            <div class="content-area" id="noteContentTarget">
-                <textarea class="notes-textarea" id="notesEditor" placeholder="Start typing..."></textarea>
+        <div class="win-body">
+            <input type="text" id="calcOut" class="calc-screen" readonly value="0">
+            <div class="calc-btns">
+                <button class="btn-c" onclick="cPress('C')">C</button>
+                <button class="btn-c" onclick="cPress('/')">/</button>
+                <button class="btn-c" onclick="cPress('*')">*</button>
+                <button class="btn-c" onclick="cPress('-')">-</button>
+                
+                <button class="btn-c" onclick="cPress('7')">7</button>
+                <button class="btn-c" onclick="cPress('8')">8</button>
+                <button class="btn-c" onclick="cPress('9')">9</button>
+                <button class="btn-c" onclick="cPress('+')">+</button>
+
+                <button class="btn-c" onclick="cPress('4')">4</button>
+                <button class="btn-c" onclick="cPress('5')">5</button>
+                <button class="btn-c" onclick="cPress('6')">6</button>
+                <button class="btn-c" onclick="cPress('=')" style="grid-row: span 2; height: 100%; background: #bad3ff;">=</button>
+
+                <button class="btn-c" onclick="cPress('1')">1</button>
+                <button class="btn-c" onclick="cPress('2')">2</button>
+                <button class="btn-c" onclick="cPress('3')">3</button>
+
+                <button class="btn-c" onclick="cPress('0')" style="grid-column: span 2;">0</button>
+                <button class="btn-c" onclick="cPress('.')">.</button>
             </div>
         </div>
     </div>
 
-    <div class="window" id="photo" style="top: 20%; left: 35%; width: 500px; height: 450px; display: none;">
-        <div class="windowheader" id="photoheader">
-            <div class="window-controls"><div class="closebutton" id="photoclose"></div></div>
-            <span class="headertext">Image Explorer</span>
+    <div id="wGallery" class="window" style="top: 105px; left: 220px; width: 330px;">
+        <div class="win-titlebar" onmousedown="dragInit(event, 'wGallery')">
+            <span>Image Gallery</span>
+            <div class="close-x" onclick="closeMe('wGallery')">X</div>
         </div>
-        <div class="app-body">
-            <div class="padded-content">
-                <h3 style="margin-top:0; margin-bottom: 4px;">Wildlife Gallery Workspace</h3>
-                <p style="color: var(--text-sub); font-size: 13px; margin-bottom: 16px;">Curated visual asset collection templates.</p>
-                <div class="gallery-grid">
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?auto=format&fit=crop&w=300&q=80" alt="Monkey"></div>
-                    <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVh_K9qE7U0kOz-KVD3D43jiB5HMiVgN5DHoITwYb_HhnlBH42je6B0wqpLHQm11eOxD-KRD9j4wTZwOWWNy8LLsNaV4GMslxFaNzoJWY&s=10" alt="Frog"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1589656966895-2f33e7653819?auto=format&fit=crop&w=300&q=80" alt="Bear"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1534567153574-2b12153a87f0?auto=format&fit=crop&w=300&q=80" alt="Monkey"></div>
-                    <div class="gallery-item"><img src="https://i.natgeofe.com/k/8fa25ea4-6409-47fb-b3cc-4af8e0dc9616/red-eyed-tree-frog-on-leaves-3-2_3x4.jpg" alt="Frog"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?auto=format&fit=crop&w=300&q=80" alt="Bear"></div>
-                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1603123853880-a92fafb7809f?auto=format&fit=crop&w=300&q=80" alt="Monkey"></div>
-                    <div class="gallery-item"><img src="https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_grizzy-bear_600x300.jpg" alt="Bear"></div>
-                    <div class="gallery-item"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgVfHORQFLyUf_rNove-xUmxIskDeMJ63REz_YIMQ6S0vCyQdkBvJos4igKspvCgpqnpy8h0xM--1uckzZIxDgyoHy37-MowkF-YzvVx8&s=10" alt="Frog"></div>
-                </div>
+        <div class="win-body">
+            <div class="gal-grid">
+                <img src="https://picsum.photos/id/1015/200/150" alt="photo1">
+                <img src="https://picsum.photos/id/1025/200/150" alt="photo2">
+                <img src="https://picsum.photos/id/1069/200/150" alt="photo3">
+                <img src="https://picsum.photos/id/1084/200/150" alt="photo4">
             </div>
         </div>
     </div>
 
-    <div class="window" id="settings" style="top: 20%; left: 55%; width: 350px; height: 240px; display: none;">
-        <div class="windowheader" id="settingsheader">
-            <div class="window-controls"><div class="closebutton" id="settingsclose"></div></div>
-            <span class="headertext">Settings</span>
+    <div id="wAbout" class="window" style="top: 130px; left: 280px; width: 300px;">
+        <div class="win-titlebar" onmousedown="dragInit(event, 'wAbout')">
+            <span>About Sid</span>
+            <div class="close-x" onclick="closeMe('wAbout')">X</div>
         </div>
-        <div class="app-body">
-            <div class="padded-content">
-                <h4 style="margin: 0 0 6px 0;">Desktop Customization</h4>
-                <p style="font-size: 12px; color: var(--text-sub); margin-bottom: 12px;">Paste an image address link to replace the global background wallpaper.</p>
-                <input type="text" class="input-field" id="wallpaperUrl" placeholder="https://images.unsplash.com/...">
-                <button class="top-bar-btn" id="applyWallpaperBtn" style="width:100%; border:none; color:#fff; padding:8px 0;">Apply Background</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="window" id="about" style="top: 40%; left: 22%; width: 380px; height: 360px; display: none;">
-        <div class="windowheader" id="aboutheader">
-            <div class="window-controls"><div class="closebutton" id="aboutclose"></div></div>
-            <span class="headertext">About Me</span>
-        </div>
-        <div class="app-body">
-            <div class="padded-content">
-                <h3 style="margin-top: 0; margin-bottom: 4px;">Hey, I'm Sid 👋,</h3>
-                <p style="font-size: 13px; color: white; margin-bottom: 16px;">I'm a high school student from Victoria, BC who enjoys coding, robotics, and building cool projects. I like turning ideas into real things.</p>
-                <h3>Current Interests</h3>
-                <div class="profile-container">
-                    <div class="profile-badge"><strong>Web Development</strong></div>
-                    <div class="profile-badge"><strong>Robotics (FIRST)</strong></div>
-                    <div class="profile-badge"><strong>AI & Machine Learning</strong></div>
-                    <div class="profile-badge"><strong>Programming</strong></div>
-                    <div class="profile-badge"><strong>UI/UX Design</strong></div>
-                </div>
-            </div>
-        </div>
-    </div>
-        
-    <div class="window" id="calendar" style="top: 25%; left: 35%; width: 340px; height: 350px; display: none;">
-        <div class="windowheader" id="calendarheader">
-            <div class="window-controls"><div class="closebutton" id="calendarclose"></div></div>
-            <span class="headertext">Calendar</span>
-        </div>
-        <div class="app-body">
-            <div class="cal-container">
-                <div class="cal-header" id="calMonthYear"></div>
-                <div class="cal-grid" id="calGridDays"></div>
-            </div>
+        <div class="win-body">
+            <h3 style="font-size: 15px; margin-bottom: 6px;">Hey! I'm Siddid</h3>
+            <p style="font-size: 12px; line-height: 1.4; color: #333; margin-bottom: 10px;">
+                High school student from Victoria, BC. Passionate about FTC robotics, custom PCB, and software projects.
+            </p>
+            <h4 style="font-size: 12px; margin-bottom: 4px;">My Tech Stack:</h4>
+            <ul style="font-size: 12px; padding-left: 18px; color: #222;">
+                <li>Java & Control Hubs (FTC)</li>
+                <li>KiCad PCB routing</li>
+                <li>openCV</li>
+                <li>Web experiments like this OS</li>
+            </ul>
         </div>
     </div>
 
-    <div class="window" id="calc" style="top: 15%; left: 40%; width: 300px; height: 420px; display: none;">
-        <div class="windowheader" id="calcheader">
-            <div class="window-controls"><div class="closebutton" id="calcclose"></div></div>
-            <span class="headertext">Calculator</span>
-        </div>
-        <div class="app-body">
-            <div class="calc-wrap">
-                <div class="calc-screen" id="calcDisplay">0</div>
-                <div class="calc-grid" id="calcGridButtons"></div>
-            </div>
-        </div>
-    </div>
+    <!-- Taskbar -->
+    <div id="tbContainer"></div>
 
-    <script src="script.js"></script>
+    <script>
+        // clock
+        function tickClock() {
+            var now = new Date();
+            var h = String(now.getHours()).padStart(2, '0');
+            var m = String(now.getMinutes()).padStart(2, '0');
+            var s = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('sysClock').innerText = h + ':' + m + ':' + s;
+        }
+        setInterval(tickClock, 1000);
+        tickClock();
+
+        var topZ = 100;
+
+        function makeTop(el) {
+            topZ++;
+            el.style.zIndex = topZ;
+        }
+
+        function openMe(id) {
+            var win = document.getElementById(id);
+            win.style.display = 'flex';
+            makeTop(win);
+            redrawTaskbar();
+        }
+
+        function closeMe(id) {
+            var win = document.getElementById(id);
+            win.style.display = 'none';
+            redrawTaskbar();
+        }
+
+        var area = document.getElementById('txtNote');
+        var savedNote = localStorage.getItem('sid_os_note_data');
+        if (savedNote) {
+            area.value = savedNote;
+        }
+
+        area.addEventListener('input', function() {
+            localStorage.setItem('sid_os_note_data', area.value);
+            document.getElementById('noteSavedStatus').innerText = "Saved " + new Date().toLocaleTimeString();
+        });
+
+        function wipeNotes() {
+            area.value = '';
+            localStorage.removeItem('sid_os_note_data');
+            document.getElementById('noteSavedStatus').innerText = "Cleared";
+        }
+
+        var curWin = null;
+        var offX = 0, offY = 0;
+
+        function dragInit(e, winId) {
+            curWin = document.getElementById(winId);
+            makeTop(curWin);
+            offX = e.clientX - curWin.offsetLeft;
+            offY = e.clientY - curWin.offsetTop;
+
+            document.addEventListener('mousemove', dragMove);
+            document.addEventListener('mouseup', dragEnd);
+        }
+
+        function dragMove(e) {
+            if (!curWin) return;
+            curWin.style.left = (e.clientX - offX) + 'px';
+            curWin.style.top = (e.clientY - offY) + 'px';
+        }
+
+        function dragEnd() {
+            curWin = null;
+            document.removeEventListener('mousemove', dragMove);
+            document.removeEventListener('mouseup', dragEnd);
+        }
+
+        // calculator logic
+        var curr_expr = '0';
+
+        function updateDisplay() {
+            document.getElementById('calcOut').value = curr_expr;
+        }
+
+        function cPress(k) {
+            if (k === 'C') {
+                curr_expr = '0';
+            } else if (k === '=') {
+                try {
+                    curr_expr = String(eval(curr_expr));
+                } catch(e) {
+                    curr_expr = 'Error';
+                }
+            } else {
+                if (curr_expr === '0' || curr_expr === 'Error') {
+                    curr_expr = k;
+                } else {
+                    curr_expr += k;
+                }
+            }
+            updateDisplay();
+        }
+
+        function redrawTaskbar() {
+            var tb = document.getElementById('tbContainer');
+            tb.innerHTML = '';
+
+            var apps = [
+                { id: 'wNotes', label: 'Notes.txt' },
+                { id: 'wCalc', label: 'Calculator' },
+                { id: 'wGallery', label: 'Gallery' },
+                { id: 'wAbout', label: 'About Me' }
+            ];
+
+            for (var i = 0; i < apps.length; i++) {
+                var app = apps[i];
+                var winEl = document.getElementById(app.id);
+                if (winEl && winEl.style.display === 'flex') {
+                    var btn = document.createElement('div');
+                    btn.className = 'tb-item active';
+                    btn.innerText = app.label;
+                    (function(target) {
+                        btn.onclick = function() {
+                            makeTop(target);
+                        };
+                    })(winEl);
+                    tb.appendChild(btn);
+                }
+            }
+        }
+
+        var allWins = document.querySelectorAll('.window');
+        for (var i = 0; i < allWins.length; i++) {
+            (function(w) {
+                w.addEventListener('mousedown', function() {
+                    makeTop(w);
+                });
+            })(allWins[i]);
+        }
+    </script>
 </body>
 </html>
